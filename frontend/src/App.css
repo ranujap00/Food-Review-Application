@@ -1,0 +1,102 @@
+/* *{
+    background-image: url("../src/Images/homeBG.jpeg");
+} */
+
+a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+/* .outerContainer{
+    margin-top: 5%;
+    background-image: url("../src/Images/homeBG.jpeg");
+    background-repeat: repeat;
+    background-size: 100% 100%;
+} */
+
+/* Navigation Bar CSS */
+.nav-search-form {
+    width: 600px;
+    justify-content: center;
+    float: left;
+    
+}
+
+.navBar {
+    background-color: rgb(195, 210, 192);
+    /* overflow:hidden; */
+    position: fixed; 
+    top: 0;
+    height: 80px;
+    width: 100%;
+    padding: 15px 0;
+    z-index: 1030;
+}
+
+.holder {
+    display: flex;
+}
+
+.searchContainer {
+    margin-left: 250px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.searchBar {
+    width: 350px;
+    border-radius: 5px;
+}
+
+.dropDownAndName {
+    display: flex;
+}
+
+.navIconContainer {
+    display: flex;
+    margin-left: 200px;
+}
+
+.iconBtn {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+
+/* Post Review Form CSS */
+.postReviewContainer {
+    display: flex;
+    width: 400px;
+    margin-left: 10%;
+    margin-top: 10%;
+    border: 1px solid black;
+}
+
+.postReviewForm{
+    padding: 10px;
+}
+
+.imageViewer{
+    display: flex;
+    width: 200px;
+}
+
+img{
+    max-width:180px;
+  }
+
+  .addPostBtn{
+    width: 90px;
+    height: 30px;
+    margin-left: 8px;
+    font-size:medium;
+    padding: 0px;
+  }
+
+  /* Login */
+  .socialBtns{
+    width: 200px;
+    margin-top: 20px;
+    margin-right: 20px;
+  }

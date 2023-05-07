@@ -1,0 +1,8 @@
+Create a folder named 'Components' and create all the components inside that folder.
+Create a seperate folder named 'CSS' to create all the .css files
+If you are using any images, make them in a seperate folder called 'Images/<category>'
+
+Please create a seperate branch when working on a certain feature
+    eg: 'create_login' branch when creating login functionality
+
+Pay attention to small details so that we can reduce the merge conflicts which saves up a lot of time.

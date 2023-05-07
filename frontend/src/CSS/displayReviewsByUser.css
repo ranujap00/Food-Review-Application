@@ -1,0 +1,53 @@
+.bottom_review{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    width: 100%;
+    /* background-color: white; */
+    
+    /*margin-left: 1%;
+    margin-right: 15%; */
+  }
+
+  .bottom_left_review{
+    width: 90%;
+  }
+
+  .review_row{
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .review_block{
+    margin-left: 10px;
+    
+  }
+
+  .inner{
+    display: inline-block;
+    background-color: aqua;
+  }
+
+  .inner_btn{
+    display: inline-block;
+    margin: 10%;
+  }
+
+  .inner_title{
+    margin-top: 5%;
+  }
+
+  .review_update_btn{
+    margin-left: 5%;
+  }
+
+  .inner_desc{
+    display: inline-block;
+    width:65%;
+    margin-left: 10%;
+  }
+
+  .close-btn{
+    display: flex;
+    float: right;
+  }

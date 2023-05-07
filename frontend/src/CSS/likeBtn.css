@@ -1,0 +1,30 @@
+
+  .btn-container {
+    display: flex;
+    flex-direction: 'row';
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 10px;
+    border-radius: 12px;
+  }
+   
+  .likeBtn {
+    border: none;
+    color:#fff;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap:6px;
+    background-color: #6079a3;
+    border-radius: 4px;
+    padding: 6px 15px;
+    margin: 0 10px;
+  }
+   
+  .like-active {
+    background-color: #FF0063;
+  }
+   
+  .dislike-active {
+    background-color: #394350;
+  }

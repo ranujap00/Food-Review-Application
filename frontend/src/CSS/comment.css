@@ -1,0 +1,44 @@
+.commentContainer{
+    /* border: 1px solid black; */
+    margin-top: 0;
+    margin-left: 100px;
+    width: 700px;
+}
+
+.comment{
+    line-height: 6px;
+    margin-top: 2px;
+    width:500px;
+    /* border: 1px solid red; */
+}
+
+.username{
+    font-weight: bold;
+}
+
+.parent div {
+    float: left;
+    clear: none; 
+}
+
+.deleteBtn{
+    margin-left: 3px;
+}
+
+.addCommentBox{
+    margin-bottom: 30px;
+    width: 400px;
+    border-radius: 10px;
+}
+
+.addCommentBtn{
+    width: 80px;
+    margin-left: 100px;
+}
+
+.comment_date{
+    font-size: small;
+    font-weight: bold;
+    color: brown;
+}
+
