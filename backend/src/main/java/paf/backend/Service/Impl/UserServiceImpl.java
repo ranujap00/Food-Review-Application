@@ -46,11 +46,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserEntity UpdateUser(UserEntity user, String id){
         UserEntity userVar = userRepository.findById(id).get();
-       userVar.setId(user.getId());
-       userVar.setUsername(user.getUsername());
+    //    userVar.setUsername(user.getUsername());
        userVar.setEmail(user.getEmail());
-       userVar.setGender(user.getGender());
-       userVar.setProPic(user.getProPic());
+       userVar.setDisplayName(user.getDisplayName());
        userVar.setLikeArray(user.getLikeArray());
        userVar.setFollowArray(user.getFollowArray());
        userRepository.save(userVar);

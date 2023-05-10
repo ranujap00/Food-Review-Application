@@ -57,7 +57,7 @@ export default function DisplayReviewsByUser(props) {
         // }
 
         console.log("Review ID: " + id);
-        axios.delete(`http://localhost:8080/api/reviews/delete/${id}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }).then((res) => {
+        axios.delete(`http://localhost:8080/api/reviews/delete/${id}`).then((res) => {
             console.log(res.data);
             alert("Review deleted");
         }).catch((err) => {
@@ -101,7 +101,7 @@ export default function DisplayReviewsByUser(props) {
             rating: rating
         }
 
-        axios.put(`http://localhost:8080/api/reviews/update/${reviewId}`,{ headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }, updatedPost).then((res) => {
+        axios.put(`http://localhost:8080/api/reviews/update/${reviewId}`, updatedPost).then((res) => {
             console.log(res.data);
             alert("Review Updated");
 
@@ -137,7 +137,7 @@ export default function DisplayReviewsByUser(props) {
                                 style={{
                                     overlay: {
                                         background: "grey",
-                                        opacity: 0.4
+                                        opacity: 0.94
                                     },
                                     content: {
                                         top: '20%',

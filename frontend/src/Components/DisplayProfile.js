@@ -57,7 +57,7 @@ export default function DisplayProfile() {
 
     axios.get(`http://localhost:8080/api/user/getUserById/${id}`).then((res) => {
       console.log(res.data);
-      setName(res.data.username);
+      setName(res.data.displayName);
       setPropic(res.data.proPic);
       // setFolloweeId( {followeeId: userId});
       // console.log(followeeId);
@@ -106,6 +106,7 @@ export default function DisplayProfile() {
         `http://localhost:8080/api/user/delete/${id}`
       );
       console.log(res);
+      window.location.replace("/");
       // Redirect the user to the homepage or a different page after deletion
     } catch (err) {
       console.log(err);
@@ -166,7 +167,7 @@ export default function DisplayProfile() {
             <button className="friends" onClick={() => {
               window.location.replace(`/profile/${id}/friends`);
             }}>Friends <PeopleIcon /></button>
-            <input id="filePicker" type="file" onChange={changeProfilePicture} />
+            {/* <input id="filePicker" type="file" onChange={changeProfilePicture} /> */}
           </div>
 
           <div className="center">
@@ -182,9 +183,13 @@ export default function DisplayProfile() {
             </button> */}
 
             {/* { */}
-            <button className="btnProfile" onClick={() => setOpen(true)}>
+            {
+              id == sessionStorage.getItem("userId") && (
+              <button className="btnProfile" onClick={() => setOpen(true)}>
               Update
             </button>
+              )
+            }
 
             <Modal open={open} onClose={() => setOpen(false)}>
               <div className="updateProf">
@@ -237,9 +242,9 @@ export default function DisplayProfile() {
           <DisplayReviewsByUser userId={id} />
         </div>
 
-        <div className="bottom_right">
+        {/* <div className="bottom_right">
           <FriendSuggestion />
-        </div>
+        </div> */}
       </div>
     </div>
   );

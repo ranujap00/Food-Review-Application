@@ -44,7 +44,7 @@ export default function CreatePost() {
         // })
 
         if (imageURLFirebase.length <= 4) {
-            axios.post("http://localhost:8080/api/reviews/insert", newPost).then(() => {
+            axios.post("http://localhost:8080/api/reviews/insert",  newPost).then(() => {
                 alert("Post added");
             }).catch((err) => {
                 alert(err);

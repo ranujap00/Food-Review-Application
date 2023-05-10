@@ -35,6 +35,7 @@ export default function FriendRequests() {
           prevState.filter((request) => request.followerId !== id)
         );
         setMessage("You are now friends");
+        alert(message);
       })
       .catch((err) => console.error(err));
   };
@@ -52,6 +53,7 @@ export default function FriendRequests() {
           prevState.filter((request) => request.followerId !== id)
         );
         setMessage("Request removed");
+        alert(message);
       })
       .catch((err) => console.error(err));
   };

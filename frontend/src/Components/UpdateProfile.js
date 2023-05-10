@@ -14,6 +14,8 @@ export default function UpdateProfile() {
     const [proPic, setProPic] = useState("");
     const [filename, setFilename] = useState("");
     const [imageUrl, setImageUrl] = useState("");
+    const [likeArray, setLikeArray] = useState([]);
+    const [followArray, setFollowArray] = useState();
 
 
     const { id } = useParams();
@@ -21,11 +23,11 @@ export default function UpdateProfile() {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/user/getUserById/${id}`).then((res) => {
             console.log(res.data);
-            setName(res.data.username);
+            setName(res.data.displayName);
             // console.log(setName);
             setEmail(res.data.email);
-            setGender(res.data.gender);
-            setProPic(res.data.proPic);
+            setLikeArray(res.data.likeArray);
+            setFollowArray(res.data.followArray);
         }).catch((err) => {
             console.log(err);
         })
@@ -34,46 +36,45 @@ export default function UpdateProfile() {
     function updateData(e) {
         e.preventDefault();
 
-        const newUser = {
-            username,
-            email,
-            gender,
-            proPic :imageUrl
+        const updatedUser = {
+            displayName: username,
+            email: email,
+            likeArray: likeArray,
+            followArray: followArray
         }
-        axios.put(`http://localhost:8080/api/user/updateUser/${id}`, newUser).then(() => {
+        axios.put(`http://localhost:8080/api/user/updateUser/${id}`, updatedUser).then(() => {
             alert("User details updated!");
-            // window.location.replace("http://localhost:3000/");
             
         }).catch((err) => {
             alert(err);
         })
     }
 
-    const changeProfilePicture = (e) => {
-        e.preventDefault();
-        const file = e.target[0]?.files[0];
-        uploadFiles(file);
-        console.log("DP: " + filename);
+    // const changeProfilePicture = (e) => {
+    //     e.preventDefault();
+    //     const file = e.target[0]?.files[0];
+    //     uploadFiles(file);
+    //     console.log("DP: " + filename);
     
-      };
+    //   };
     
-      const uploadFiles = (file) => {
-        if (!file) return;
-        const sotrageRef = ref(storage, `profileImages/${sessionStorage.getItem("userId")}/${file.name}`);
-        const uploadTask = uploadBytesResumable(sotrageRef, file);
+    //   const uploadFiles = (file) => {
+    //     if (!file) return;
+    //     const sotrageRef = ref(storage, `profileImages/${sessionStorage.getItem("userId")}/${file.name}`);
+    //     const uploadTask = uploadBytesResumable(sotrageRef, file);
     
-        uploadTask.on(
-            "state_changed",
-            (error) => console.log(error),
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log("File: ", downloadURL);
-                    console.log(typeof downloadURL);
-                    setFilename(downloadURL);
-                });
-            }
-        );
-    };
+    //     uploadTask.on(
+    //         "state_changed",
+    //         (error) => console.log(error),
+    //         () => {
+    //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //                 console.log("File: ", downloadURL);
+    //                 console.log(typeof downloadURL);
+    //                 setFilename(downloadURL);
+    //             });
+    //         }
+    //     );
+    // };
     // const handleSubmit = async (event) => {
     //     event.preventDefault();
     //     try {
@@ -112,13 +113,13 @@ export default function UpdateProfile() {
               </select>
                 </div>
 
-                <div className='mb-3'>
+                {/* <div className='mb-3'>
                     <label for="proPic" className='form-label'>Profile Picture</label>
-                    <input id="filePicker" type="file" onChange={changeProfilePicture}/>
+                    <input id="filePicker" type="file" onChange={changeProfilePicture}/> */}
                     {/* <input type='text' className='form-control' id='proPic' value={proPic} onChange={(e) =>{
                         setProPic(e.target.value)
                     }}/> */}
-                </div>
+                {/* </div> */}
 
                 <button type="submit" class="btn btn-success">Update <i class="fa fa-pencil"></i></button>
 

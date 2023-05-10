@@ -110,7 +110,7 @@ public class LoginController {
     @Transactional
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpDTO signUpdtO){
         String uName = signUpdtO.getEmail().split("@", 2)[0];
-        UserEntity user = new UserEntity(uName, passwordEncoder.encode(signUpdtO.getPassword()), signUpdtO.getEmail(), Collections.EMPTY_LIST, Collections.EMPTY_MAP);
+        UserEntity user = new UserEntity(uName, passwordEncoder.encode(signUpdtO.getPassword()), signUpdtO.getEmail(), uName, Collections.EMPTY_LIST, Collections.EMPTY_MAP);
         userService.AddUser(user);
 
         RefreshToken refreshToken = new RefreshToken();

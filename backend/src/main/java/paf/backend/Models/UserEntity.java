@@ -38,16 +38,19 @@ public class UserEntity implements UserDetails{
 
     private String email;
 
+    private String displayName;
+
     private List<Integer> likeArray;
 
     private  String proPic;
 
     private Map<String, String> followArray;
 
-    public UserEntity(String username, String password, String email, List<Integer> likeArray, Map<String, String> followArray){
+    public UserEntity(String username, String password, String email, String displayName, List<Integer> likeArray, Map<String, String> followArray){
         this.username = username;
         this.password = password;
         this.email = email;
+        this.displayName = displayName;
         this.likeArray = likeArray;
         this.followArray = followArray;
     }
