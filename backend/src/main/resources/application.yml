@@ -1,11 +1,11 @@
-# spring:
-#     data:
-#         mongodb:
-#             uri: mongodb+srv://nuwanidilara:nuwanidilara@pafdb.5e3aldg.mongodb.net/?retryWrites=true&w=majority
-#             database: pafdbs
-            
 spring:
     data:
         mongodb:
-            uri: mongodb+srv://ranuja:ranujap00@testcluster.dahry.mongodb.net/?retryWrites=true&w=majority
-            database: PafTestDb
+            uri: mongodb+srv://nuwanidilara:nuwanidilara@pafdb.5e3aldg.mongodb.net/?retryWrites=true&w=majority
+            database: pafdbs
+            
+# spring:
+#     data:
+#         mongodb:
+#             uri: mongodb+srv://ranuja:ranujap00@testcluster.dahry.mongodb.net/?retryWrites=true&w=majority
+#             database: PafTestDb

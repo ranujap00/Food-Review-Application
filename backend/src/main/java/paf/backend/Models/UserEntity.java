@@ -40,6 +40,8 @@ public class UserEntity implements UserDetails{
 
     private List<Integer> likeArray;
 
+    private  String proPic;
+
     private Map<String, String> followArray;
 
     public UserEntity(String username, String password, String email, List<Integer> likeArray, Map<String, String> followArray){
@@ -60,6 +62,16 @@ public class UserEntity implements UserDetails{
 
     public String getUserId(){
         return id;
+    }
+
+    public String gender;
+
+    public String getProPic(){
+        return proPic;
+    }
+
+    public String getGender(){
+        return gender;
     }
 
     @Override
@@ -122,8 +134,24 @@ public class UserEntity implements UserDetails{
         }
     }
 
+    public void acceptedFollowRequest(String requesterId) {
+        if (!isFollowed(requesterId)) {
+            followArray.put(requesterId, "accepted");
+        }
+    }
+
+    public void declineFollowRequest(String requesterId) {
+        if (isFollowRequestPending(requesterId)) {
+            followArray.remove(requesterId);
+        }
+    }
+
     public void unfollowUser(String requesterId) {
         followArray.remove(requesterId);
+    }
+
+    public void unfollowedUser(String followeeId) {
+        followArray.remove(followeeId);
     }
 
     public void removeFollowRequests(String requesterId) {

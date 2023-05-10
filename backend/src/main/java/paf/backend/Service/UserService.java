@@ -30,8 +30,12 @@ public interface UserService {
 
     public UserEntity acceptFollowRequest(String requesterId, String followerId);
 
+    public UserEntity declineFollowRequest(String requesterId, String followerId);
+
     public UserEntity unfollowUser(String requesterId, String followeeId);
 
     public List<UserEntity> getFollowers(String userId);
+
+     public List<UserEntity> getPendings(String userId);
 
 }
