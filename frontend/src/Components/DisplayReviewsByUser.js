@@ -8,7 +8,7 @@ import Model from 'react-modal';
 import CloseIcon from '@mui/icons-material/Close';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import storage from "../firebase";
-
+import { Modal } from "@mui/material";
 
 
 export default function DisplayReviewsByUser(props) {
@@ -23,14 +23,16 @@ export default function DisplayReviewsByUser(props) {
     let [location, setLocation] = useState("");
     let [rating, setRating] = useState("");
 
-    
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+
 
     useEffect(() => {
         function getAllReviewsByUser() {
             console.log("Session:  " + sessionStorage.getItem("accessToken"))
             console.log("userId:  " + props.userId);
             // { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }
-            axios.get(`http://localhost:8080/api/reviews/getAllReviewsByUserId/${props.userId}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }).then((res) => {
+            axios.get(`http://localhost:8080/api/reviews/getAllReviewsByUserId/${props.userId}`, { headers: { "Authorization": `Bearer ${sessionStorage.getItem("accessToken")}` } }).then((res) => {
                 console.log(res.data);
                 setReviews(res.data);
 
@@ -44,11 +46,11 @@ export default function DisplayReviewsByUser(props) {
 
     const deleteReview = async (id) => {
         // confirm("ME");
-        console.log("ID: " + id);
-        const { data: res } = await axios.get(`http://localhost:8080/api/reviews/getReviewById/${id}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} });
-        
-        setImages(res.images);
-        console.log("IMAGES: " + res.images); 
+        // console.log("ID: " + id);
+        // const { data: res } = await axios.get(`http://localhost:8080/api/reviews/getReviewById/${id}`);
+
+        // setImages(res.images);
+        // console.log("IMAGES: " + res.images);
 
         // for (let img in imagesArr) {
         //     console.log(imagesArr[img]);
@@ -59,7 +61,7 @@ export default function DisplayReviewsByUser(props) {
         console.log("Review ID: " + id);
         axios.delete(`http://localhost:8080/api/reviews/delete/${id}`).then((res) => {
             console.log(res.data);
-            alert("Review deleted");
+            setShowDeleteConfirmation(false);
         }).catch((err) => {
             alert(err.message);
         })
@@ -110,7 +112,7 @@ export default function DisplayReviewsByUser(props) {
         })
     }
 
-    
+
 
 
     return (
@@ -121,16 +123,50 @@ export default function DisplayReviewsByUser(props) {
                         <div className="review_block">
                             <hr />
                             {
-                                props.userId == sessionStorage.getItem("userId") &&(
-                                    <DeleteOutlineOutlinedIcon color="error" onClick={() => deleteReview(review.id)} />
+                                props.userId == sessionStorage.getItem("userId") && (
+                                    <DeleteOutlineOutlinedIcon color="error" onClick={() => setShowDeleteConfirmation(true)} />
                                 )
                             }
                             {
-                                props.userId == sessionStorage.getItem("userId") &&(
+                                props.userId == sessionStorage.getItem("userId") && (
                                     <BorderColorOutlinedIcon className="review_update_btn" color="success" onClick={() => updateReview(review.id, review.title, review.description, review.location, review.rating)} />
                                 )
                             }
-                           
+                            <Modal
+
+                                open={showDeleteConfirmation}
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    "& .MuiPaper-root": {
+                                        backgroundColor: "white",
+                                        border: "2px solid #000",
+                                        boxShadow: 24,
+                                        p: 4,
+                                    },
+                                    "& .MuiBackdrop-root": {
+                                        backdropFilter: "blur(2px)",
+                                        backgroundColor: "rgba(0, 0, 0, 0.05)",
+                                    },
+                                }}
+                                onClose={() => setShowDeleteConfirmation(false)}
+                            >
+                                <div className="deleteConfirmation">
+                                    <h3>Are you sure you want to delete this Review?</h3>
+                                    <button className="btnDelete" onClick={() => deleteReview(review.id)}>
+                                        Delete
+                                    </button>
+                                    <button
+                                        className="btnCancel"
+                                        onClick={() => setShowDeleteConfirmation(false)}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </Modal>
+
+
                             <Model
                                 isOpen={visibility}
                                 onRequestClose={() => setVisibility(false)}

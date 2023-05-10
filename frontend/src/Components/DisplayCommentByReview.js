@@ -4,6 +4,7 @@ import axios from "axios";
 import "../CSS/comment.css";
 import Model from 'react-modal';
 import CloseIcon from '@mui/icons-material/Close';
+import { Modal } from "@mui/material";
 
 export default function DisplayCommentByReview(props) {
     const [comments, setComments] = useState([]);
@@ -13,6 +14,8 @@ export default function DisplayCommentByReview(props) {
 
     const [commentId, setCommentId] = useState("");
     const [commentDescription, setCommentDescription] = useState("");
+
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
     useEffect(() => {
         const getComment = async () => {
@@ -42,7 +45,7 @@ export default function DisplayCommentByReview(props) {
         console.log("Comment ID: " + id);
         axios.delete(`http://localhost:8080/api/comment/delete/${id}`).then((res) => {
             console.log(res.data);
-            alert("Comment deleted");
+            setShowDeleteConfirmation(false);
         }).catch((err) => {
             alert(err.message);
         })
@@ -99,11 +102,45 @@ export default function DisplayCommentByReview(props) {
                             }
                             {
                                 props.userId == sessionStorage.getItem("userId") && (
-                                    <button className="btn btn-danger btn-sm deleteBtn" onClick={() => deleteComment(comment.comment_Id)}>Delete</button>
+                                    <button className="btn btn-danger btn-sm deleteBtn" onClick={() => setShowDeleteConfirmation(true)}>Delete</button>
                                 )
                             }
 
                         </div>
+
+                        <Modal
+
+                                open={showDeleteConfirmation}
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    "& .MuiPaper-root": {
+                                        backgroundColor: "white",
+                                        border: "2px solid #000",
+                                        boxShadow: 24,
+                                        p: 4,
+                                    },
+                                    "& .MuiBackdrop-root": {
+                                        backdropFilter: "blur(2px)",
+                                        backgroundColor: "rgba(0, 0, 0, 0.05)",
+                                    },
+                                }}
+                                onClose={() => setShowDeleteConfirmation(false)}
+                            >
+                                <div className="deleteConfirmation">
+                                    <h3>Are you sure you want to delete this Comment?</h3>
+                                    <button className="btnDelete" onClick={() => deleteComment(comment.comment_Id)}>
+                                        Delete
+                                    </button>
+                                    <button
+                                        className="btnCancel"
+                                        onClick={() => setShowDeleteConfirmation(false)}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </Modal>
                         <br />
                         <br />
                         <br />
