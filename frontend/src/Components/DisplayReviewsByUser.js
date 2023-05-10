@@ -30,7 +30,7 @@ export default function DisplayReviewsByUser(props) {
             console.log("Session:  " + sessionStorage.getItem("accessToken"))
             console.log("userId:  " + props.userId);
             // { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }
-            axios.get(`http://localhost:8080/api/reviews/getAllReviewsByUserId/${props.userId}`).then((res) => {
+            axios.get(`http://localhost:8080/api/reviews/getAllReviewsByUserId/${props.userId}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }).then((res) => {
                 console.log(res.data);
                 setReviews(res.data);
 
@@ -45,7 +45,7 @@ export default function DisplayReviewsByUser(props) {
     const deleteReview = async (id) => {
         // confirm("ME");
         console.log("ID: " + id);
-        const { data: res } = await axios.get(`http://localhost:8080/api/reviews/getReviewById/${id}`);
+        const { data: res } = await axios.get(`http://localhost:8080/api/reviews/getReviewById/${id}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} });
         
         setImages(res.images);
         console.log("IMAGES: " + res.images); 
@@ -57,7 +57,7 @@ export default function DisplayReviewsByUser(props) {
         // }
 
         console.log("Review ID: " + id);
-        axios.delete(`http://localhost:8080/api/reviews/delete/${id}`).then((res) => {
+        axios.delete(`http://localhost:8080/api/reviews/delete/${id}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }).then((res) => {
             console.log(res.data);
             alert("Review deleted");
         }).catch((err) => {
@@ -101,7 +101,7 @@ export default function DisplayReviewsByUser(props) {
             rating: rating
         }
 
-        axios.put(`http://localhost:8080/api/reviews/update/${reviewId}`, updatedPost).then((res) => {
+        axios.put(`http://localhost:8080/api/reviews/update/${reviewId}`,{ headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }, updatedPost).then((res) => {
             console.log(res.data);
             alert("Review Updated");
 

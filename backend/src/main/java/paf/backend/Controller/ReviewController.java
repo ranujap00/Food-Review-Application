@@ -39,15 +39,18 @@ public class ReviewController {
     private SequenceGeneratorService service;
 
     @GetMapping("/all")
-    public List<Review> getAllReviews(){
-        // ResponseEntity<?> res = ResponseEntity.ok(user);
-        // if(res.hasBody()){
-            
-        // }
-        // else{
-        //     return Collections.emptyList();
-        // }
-        return reviewService.getReviews();
+    public List<Review> getAllReviews(@AuthenticationPrincipal UserEntity user){
+        ResponseEntity<?> res = ResponseEntity.ok(user);
+        if(res.hasBody()){
+            System.out.println("Has body");
+            return reviewService.getReviews();
+        }
+        else{
+            System.out.println("No body");
+            return Collections.emptyList();
+        }
+        // return reviewService.getReviews();
+        
     }
 
     @GetMapping("/welcome")
@@ -56,8 +59,17 @@ public class ReviewController {
     }
 
     @GetMapping("/getAllReviewsByUserId/{userId}")
-    public List<Review> getReviewsByUserId(@PathVariable("userId") String userId){
-        return reviewService.getAllReviewsByUserId(userId);
+    public List<Review> getReviewsByUserId(@AuthenticationPrincipal UserEntity user, @PathVariable("userId") String userId){
+        ResponseEntity<?> res = ResponseEntity.ok(user);
+        if(res.hasBody()){
+            System.out.println("Has body");
+            return reviewService.getAllReviewsByUserId(userId);
+        }
+        else{
+            System.out.println("No body");
+            return Collections.emptyList();
+        }
+        
     }
 
     @GetMapping("/authorized")
@@ -66,28 +78,73 @@ public class ReviewController {
     }
 
     @GetMapping("/getReviewById/{id}")
-    public Optional<Review> getReviewById(@PathVariable("id") int id){
-        return reviewService.getReviewById(id);
+    public Optional<Review> getReviewById(@AuthenticationPrincipal UserEntity user, @PathVariable("id") int id){
+        ResponseEntity<?> res = ResponseEntity.ok(user);
+        if(res.hasBody()){
+            System.out.println("Has body");
+            return reviewService.getReviewById(id);
+        }
+        else{
+            System.out.println("No body");
+            return null;
+        }
+        
     }
 
     @PostMapping("/insert")
-    public Review insert(@RequestBody Review review){
-        review.setId(service.getSequenceNumber(Review.SEQUENCE_NAME));
+    public Review insert(@AuthenticationPrincipal UserEntity user, @RequestBody Review review){
+        ResponseEntity<?> res = ResponseEntity.ok(user);
+        if(res.hasBody()){
+            System.out.println("Has body");
+            review.setId(service.getSequenceNumber(Review.SEQUENCE_NAME));
         return reviewService.addReview(review);
+        }
+        else{
+            System.out.println("No body");
+            return null;
+        }
+        
     }
 
     @PutMapping("/updateReviewById/{id}")
-     public Review updateReview(@RequestBody Review review, @PathVariable("id") int id){
-        return reviewService.updateReviewById(id, review);
+     public Review updateReview(@AuthenticationPrincipal UserEntity user, @RequestBody Review review, @PathVariable("id") int id){
+        ResponseEntity<?> res = ResponseEntity.ok(user);
+        if(res.hasBody()){
+            System.out.println("Has body");
+            return reviewService.updateReviewById(id, review);
+        }
+        else{
+            System.out.println("No body");
+            return null;
+        }
+        
     }
 
     @DeleteMapping("/delete/{review_Id}")
-    public Review delete(@PathVariable int review_Id){
-        return reviewService.deleteReview(review_Id);
+    public Review delete(@AuthenticationPrincipal UserEntity user, @PathVariable int review_Id){
+        ResponseEntity<?> res = ResponseEntity.ok(user);
+        if(res.hasBody()){
+            System.out.println("Has body");
+            return reviewService.deleteReview(review_Id);
+        }
+        else{
+            System.out.println("No body");
+            return null;
+        }
+        
     }
 
     @PutMapping("/update/{review_Id}")
-    public Review update(@RequestBody Review review,@PathVariable int review_Id){
-        return reviewService.updateReview(review_Id, review);
+    public Review update(@AuthenticationPrincipal UserEntity user, @RequestBody Review review,@PathVariable int review_Id){
+        ResponseEntity<?> res = ResponseEntity.ok(user);
+        if(res.hasBody()){
+            System.out.println("Has body");
+            return reviewService.updateReview(review_Id, review);
+        }
+        else{
+            System.out.println("No body");
+            return null;
+        }
+        
     }
 }

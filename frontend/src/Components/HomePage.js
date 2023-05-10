@@ -11,8 +11,7 @@ export default function HomePage() {
     useEffect(() => {
         function getAllReviews() {
             console.log("Session:  " + sessionStorage.getItem("accessToken"))
-            // { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }
-            axios.get("http://localhost:8080/api/reviews/all").then((res) => {
+            axios.get("http://localhost:8080/api/reviews/all", { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }).then((res) => {
                 console.log(res.data);
                 setReviews(res.data);
                 
@@ -74,7 +73,6 @@ export default function HomePage() {
                     )
                         
                     }
-
                 </div>
             </div>
 

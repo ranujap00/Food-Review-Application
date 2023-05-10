@@ -68,18 +68,18 @@ export default function DisplayProfile() {
   }, [id]);
 
   const handleClick = () => {
-    
+
     axios
       .put(`http://localhost:8080/api/user/${sessionStorage.getItem("userId")}/follow/${id}`)
       .then((res) => {
-        console.log("user"+res.data);
+        console.log("user" + res.data);
         setIsFollowing(true);
-        console.log("session"+sessionStorage.getItem("userId"));
+        console.log("session" + sessionStorage.getItem("userId"));
         alert("request sent")
       })
-    .catch((err) => {
-      console.log(err);
-    })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   const btnClick = (event) => {
@@ -126,17 +126,17 @@ export default function DisplayProfile() {
     const uploadTask = uploadBytesResumable(sotrageRef, file);
 
     uploadTask.on(
-        "state_changed",
-        (error) => console.log(error),
-        () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                console.log("File: ", downloadURL);
-                console.log(typeof downloadURL);
-                setFilename(downloadURL);
-            });
-        }
+      "state_changed",
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File: ", downloadURL);
+          console.log(typeof downloadURL);
+          setFilename(downloadURL);
+        });
+      }
     );
-};
+  };
 
   return (
     <div className="profile">
@@ -163,10 +163,10 @@ export default function DisplayProfile() {
               <PeopleIcon />
               Friends
             </a> */}
-             <button className="friends" onClick={() => {
-                                            window.location.replace(`/profile/${id}/friends`);
-                                        }}>Friends <PeopleIcon /></button>  
-            <input id="filePicker" type="file" onChange={changeProfilePicture}/>
+            <button className="friends" onClick={() => {
+              window.location.replace(`/profile/${id}/friends`);
+            }}>Friends <PeopleIcon /></button>
+            <input id="filePicker" type="file" onChange={changeProfilePicture} />
           </div>
 
           <div className="center">
@@ -180,9 +180,9 @@ export default function DisplayProfile() {
             {/* <button className="btnProfile" onClick={handleUpdateFormOpen}>
               Update
             </button> */}
-            
+
             {/* { */}
-              <button className="btnProfile" onClick={() => setOpen(true)}>
+            <button className="btnProfile" onClick={() => setOpen(true)}>
               Update
             </button>
 
@@ -193,9 +193,14 @@ export default function DisplayProfile() {
             </Modal>
             {/* } */}
 
-            <button className="btnProfile" onClick={handleClick}>
+            {
+              id != sessionStorage.getItem("userId") && (
+                <button className="btnProfile" onClick={handleClick}>
               {isFollowing ? "Unfollow" : "Follow"}
             </button>
+              )
+            }
+            
             <IconButton className="Iconbtn" onClick={btnClick}>
               <MoreHorizIcon />
               <Menu anchorEl={anchorEl} open={showMenu} onClose={handleClose}>

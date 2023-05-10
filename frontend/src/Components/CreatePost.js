@@ -157,12 +157,10 @@ export default function CreatePost() {
                         setRating(e.target.value)
                     }} />
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Add review</button>
             </form>
 
-            {/* <button onClick={() => {
-                window.location.replace(`/viewAllPosts`);
-            }}>View Posts</button> */}
+
         </div>
     )
 }

@@ -28,7 +28,7 @@ export default function DisplaySingleReview() {
 
     useEffect(() => {
         const getReviewById = async () => {
-            const { data: res } = await axios.get(`http://localhost:8080/api/reviews/getReviewById/${id}`);
+            const { data: res } = await axios.get(`http://localhost:8080/api/reviews/getReviewById/${id}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} });
             console.log("result :" + res.likeCount);
             setImages(res.images);
             setTitle(res.title);
@@ -109,7 +109,7 @@ export default function DisplaySingleReview() {
 
                     console.log("new post: " + likeCount);
 
-                    axios.put(`http://localhost:8080/api/reviews/updateReviewById/${id}`, newPost).then((res) => {
+                    axios.put(`http://localhost:8080/api/reviews/updateReviewById/${id}`, { headers: {"Authorization" : `Bearer ${sessionStorage.getItem("accessToken")}`} }, newPost).then((res) => {
                         console.log(res.data);
                         sendNotification("like");
 

@@ -27,7 +27,7 @@ export default function Login() {
             sessionStorage.setItem("userId", res.data.userId);
 
 
-            // console.log("SEssion access: " + sessionStorage.getItem("accessToken"));
+            console.log("SEssion access: " + sessionStorage.getItem("accessToken"));
             setNavigate(true);
         }).catch((err) => {
             alert(err);
