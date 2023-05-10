@@ -11,7 +11,7 @@ export default function UpdateProfile() {
     const [username, setName] = useState("");
     const [email, setEmail] = useState("");
     const [gender, setGender] = useState("");
-    const [proPic, setProPic] = useState("");
+    // const [proPic, setProPic] = useState("");
     const [filename, setFilename] = useState("");
     const [imageUrl, setImageUrl] = useState("");
 
@@ -25,7 +25,7 @@ export default function UpdateProfile() {
             // console.log(setName);
             setEmail(res.data.email);
             setGender(res.data.gender);
-            setProPic(res.data.proPic);
+            // setProPic(res.data.proPic);
         }).catch((err) => {
             console.log(err);
         })
@@ -34,13 +34,13 @@ export default function UpdateProfile() {
     function updateData(e) {
         e.preventDefault();
 
-        const newUser = {
-            username,
-            email,
-            gender,
-            proPic :imageUrl
-        }
-        axios.put(`http://localhost:8080/api/user/updateUser/${id}`, newUser).then(() => {
+        // const newUser = {
+        //     username,
+        //     email,
+        //     gender,
+        //     // proPic :imageUrl
+        // }
+        axios.put(`http://localhost:8080/api/user/updateUser/${id}`).then(() => {
             alert("User details updated!");
             // window.location.replace("http://localhost:3000/");
             
@@ -112,13 +112,13 @@ export default function UpdateProfile() {
               </select>
                 </div>
 
-                <div className='mb-3'>
+                {/* <div className='mb-3'>
                     <label for="proPic" className='form-label'>Profile Picture</label>
-                    <input id="filePicker" type="file" onChange={changeProfilePicture}/>
+                    <input id="filePicker" type="file" onChange={changeProfilePicture}/> */}
                     {/* <input type='text' className='form-control' id='proPic' value={proPic} onChange={(e) =>{
                         setProPic(e.target.value)
                     }}/> */}
-                </div>
+                {/* </div> */}
 
                 <button type="submit" class="btn btn-success">Update <i class="fa fa-pencil"></i></button>
 

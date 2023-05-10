@@ -34,7 +34,8 @@ export default function FriendRequests() {
         setPendingRequests((prevState) =>
           prevState.filter((request) => request.followerId !== id)
         );
-        setMessage("You are now friends");
+        // setMessage("You are now friends");
+        alert("You are now friends")
       })
       .catch((err) => console.error(err));
   };
@@ -42,7 +43,7 @@ export default function FriendRequests() {
   const handleDecline = (id) => {
     axios
       .put(
-        `http://localhost:8080/api/user/${id}/declineRequest/${sessionStorage.getItem(
+        `http://localhost:8080/api/user/${id}/decline/${sessionStorage.getItem(
           "userId"
         )}`
       )
@@ -51,7 +52,8 @@ export default function FriendRequests() {
         setPendingRequests((prevState) =>
           prevState.filter((request) => request.followerId !== id)
         );
-        setMessage("Request removed");
+        // setMessage("Request removed");
+        alert("Request removed")
       })
       .catch((err) => console.error(err));
   };

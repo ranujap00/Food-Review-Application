@@ -24,6 +24,7 @@ export default function DisplayProfile() {
   const [email, setEmail] = useState("");
   const [proPic, setPropic] = useState("");
   const [gender, setGender] = useState("");
+  const [followArray, setFollowArray] = useState();
   // const [userId, setUserId] = useState("");
   // console [users, setUsers] = useState([]);
 
@@ -59,6 +60,7 @@ export default function DisplayProfile() {
       console.log(res.data);
       setName(res.data.username);
       setPropic(res.data.proPic);
+      setFollowArray(res.data.followArray);
       // setFolloweeId( {followeeId: userId});
       // console.log(followeeId);
 
@@ -68,18 +70,31 @@ export default function DisplayProfile() {
   }, [id]);
 
   const handleClick = () => {
-
+    // if(isFollowing == false){
     axios
       .put(`http://localhost:8080/api/user/${sessionStorage.getItem("userId")}/follow/${id}`)
       .then((res) => {
+        
+        
         console.log("user" + res.data);
         setIsFollowing(true);
+
         console.log("session" + sessionStorage.getItem("userId"));
         alert("request sent")
+      
+       
       })
       .catch((err) => {
         console.log(err);
       })
+  //   }
+  //   else{
+  //     axios.put(`http://localhost:8080/api/user/${sessionStorage.getItem("userId")}/unfollow/${id}`)
+  //     .then((res) => {
+  //       setIsFollowing(false);
+  //       alert("User Unfollowed!")
+  //     })
+  //   }
   };
 
   const btnClick = (event) => {
@@ -166,7 +181,7 @@ export default function DisplayProfile() {
             <button className="friends" onClick={() => {
               window.location.replace(`/profile/${id}/friends`);
             }}>Friends <PeopleIcon /></button>
-            <input id="filePicker" type="file" onChange={changeProfilePicture} />
+            {/* <input id="filePicker" type="file" onChange={changeProfilePicture} /> */}
           </div>
 
           <div className="center">
@@ -182,9 +197,12 @@ export default function DisplayProfile() {
             </button> */}
 
             {/* { */}
-            <button className="btnProfile" onClick={() => setOpen(true)}>
+            { id == sessionStorage.getItem("userId") &&(
+              <button className="btnProfile" onClick={() => setOpen(true)}>
               Update
             </button>
+            )   
+          }
 
             <Modal open={open} onClose={() => setOpen(false)}>
               <div className="updateProf">
@@ -193,12 +211,20 @@ export default function DisplayProfile() {
             </Modal>
             {/* } */}
 
+            {/* {
+              followArray.map((fl)=>(
+                fl[sessionStorage.getItem("userId")] == null&&(isFollowing = true)
+                
+              ))
+              
+            } */}
             {
               id != sessionStorage.getItem("userId") && (
                 <button className="btnProfile" onClick={handleClick}>
               {isFollowing ? "Unfollow" : "Follow"}
             </button>
               )
+              
             }
             
             <IconButton className="Iconbtn" onClick={btnClick}>
