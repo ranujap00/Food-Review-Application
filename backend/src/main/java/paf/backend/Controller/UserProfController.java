@@ -71,6 +71,11 @@ public class UserProfController {
     return userService.acceptFollowRequest(requesterId, followerId);
   }
 
+  @PutMapping("/{requesterId}/decilne/{followerId}")
+  public UserEntity declineFollowRequest(@PathVariable String requesterId, @PathVariable String followerId) {
+    return userService.declineFollowRequest(requesterId, followerId);
+  }
+
   @PutMapping("/{requesterId}/unfollow/{followeeId}")
   public UserEntity unfollowUser(@PathVariable String requesterId, @PathVariable String followeeId) {
     return userService.unfollowUser(requesterId, followeeId);
@@ -79,5 +84,10 @@ public class UserProfController {
   @GetMapping("/{userId}/allFollowers")
   public List<UserEntity> getFollowers(@PathVariable String userId) {
     return userService.getFollowers(userId);
+  }
+
+  @GetMapping("/{userId}/pendingRequests")
+  public List<UserEntity> getPendings (@PathVariable String userId){
+    return userService.getPendings(userId);
   }
 }

@@ -150,8 +150,8 @@ export default function NavBar() {
 
                         <div className="iconBtn">
                             <IconButton onClick={() => {
-                                alert('follow requests button');
-
+                                // alert('follow requests button');
+                                window.location.replace(`http://localhost:3000/friendRequests/${sessionStorage.getItem("userId")}`)
                             }}>
                                 <PersonAddAltIcon />
                             </IconButton>

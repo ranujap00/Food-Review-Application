@@ -2,6 +2,7 @@ package paf.backend.Service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,8 @@ public class UserServiceImpl implements UserService{
        userVar.setId(user.getId());
        userVar.setUsername(user.getUsername());
        userVar.setEmail(user.getEmail());
-    //    userVar.setGender(user.getGender());
+       userVar.setGender(user.getGender());
+       userVar.setProPic(user.getProPic());
        userVar.setLikeArray(user.getLikeArray());
        userVar.setFollowArray(user.getFollowArray());
        userRepository.save(userVar);
@@ -98,6 +100,22 @@ public class UserServiceImpl implements UserService{
         }
 
         requester.acceptFollowRequest(followerId);
+        follower.acceptedFollowRequest(requesterId);
+        userRepository.save(requester);
+        userRepository.save(follower);
+        return follower;
+    }
+
+    @Override
+    public UserEntity declineFollowRequest(String requesterId, String followerId) {
+        UserEntity requester = userRepository.findById(requesterId).orElse(null);
+        UserEntity follower = userRepository.findById(followerId).orElse(null);
+
+        if (requester == null || follower == null) {
+            return null;
+        }
+
+        requester.declineFollowRequest(followerId);
         follower.followUser(requesterId);
         userRepository.save(requester);
         userRepository.save(follower);
@@ -114,7 +132,9 @@ public class UserServiceImpl implements UserService{
         }
 
         followee.unfollowUser(requesterId);
+        requester.unfollowedUser(followeeId);
         userRepository.save(followee);
+        userRepository.save(requester);
         return followee;
     }
 
@@ -128,5 +148,22 @@ public class UserServiceImpl implements UserService{
         return followers;
     }
     
-
+    @Override
+    public List<UserEntity> getPendings(String userId) {
+        List<UserEntity> pendingUsers = new ArrayList<>();
+        UserEntity user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            Map<String, String> followArray = user.getFollowArray();
+            for (String key : followArray.keySet()) {
+                String value = followArray.get(key);
+                if (value.equals("pending")) {
+                    UserEntity pendingUser = userRepository.findById(key).orElse(null);
+                    if (pendingUser != null) {
+                        pendingUsers.add(pendingUser);
+                    }
+                }
+            }
+        }
+        return pendingUsers;
+    }
 }

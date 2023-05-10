@@ -12,6 +12,8 @@ import DisplayProfile from './Components/DisplayProfile'
 import UpdateProfile from './Components/UpdateProfile';
 import DisplayReviewsByUser from "./Components/DisplayReviewsByUser";
 import UpdateReview from "./Components/UpdateReview";
+import FriendList from "./Components/FriendList";
+import FriendRequests from "./Components/FriendRequests"
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
           {/* <Route path="/userProfileByUsername/:username" element={<DisplayProfile/>} /> */}
           {/* <Route path="/profile/:id" element={<DisplayProfile/>} /> */}
           <Route path="/profile/:id/update" element={<UpdateProfile/>}/>
+          <Route path="/profile/:id/friends" element={<FriendList/>}/>
+          <Route path="/friendRequests/:id" element={<FriendRequests/>}/>
         </Routes>
       </div>
     </Router>

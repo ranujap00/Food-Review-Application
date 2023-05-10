@@ -102,7 +102,12 @@
   }
   
   .friends{
-    font-size: large;
+    border: none;
+    background-color: lightseagreen;
+    color: white;
+    padding: 10PX 20PX;
+    border-radius: 5px;
+    cursor: pointer;
   }
 
   .display_username{
@@ -296,3 +301,16 @@
   .btnCancel:hover {
   background-color: #95a5a6;
   }
+
+  /* update button */
+  /* .updateeProf{
+     position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  } */

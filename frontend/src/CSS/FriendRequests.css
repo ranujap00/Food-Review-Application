@@ -1,0 +1,32 @@
+.requestpage{
+    margin-top: 3%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 15%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.list{
+    gap: 10px;
+}
+
+.btnAccept{
+    background-color: lightgreen;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90px;
+}
+
+.btnDecline{
+    background-color: lightcoral;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90px;
+}

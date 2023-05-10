@@ -22,8 +22,15 @@ export default function DisplayProfile() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [propic, setPropic] = useState("");
-  const [following, setFollowing] = useState(false);
+  const [proPic, setPropic] = useState("");
+  const [gender, setGender] = useState("");
+  // const [userId, setUserId] = useState("");
+  // console [users, setUsers] = useState([]);
+
+
+  // Define variables for display follow/ unfollow 
+  const [isFollowing, setIsFollowing] = useState(false);
+  // const [followeeId, setFolloweeId] = useState("");
 
   // defining variables for display delete button
   const [anchorEl, setAnchorEl] = useState(null);
@@ -41,14 +48,19 @@ export default function DisplayProfile() {
     // const socket = io("http://localhost:5000");
     // console.log(socket.on("firstEvent", (msg) => {
     //   console.log(msg);
-    // }));
+    // })); 
 
+    // console.log("Session:  " + sessionStorage.getItem("accessToken"))
+    //         console.log("userId:  " + props.userId);
 
     console.log("ID: " + id);
 
     axios.get(`http://localhost:8080/api/user/getUserById/${id}`).then((res) => {
       console.log(res.data);
       setName(res.data.username);
+      setPropic(res.data.proPic);
+      // setFolloweeId( {followeeId: userId});
+      // console.log(followeeId);
 
     }).catch((err) => {
       alert(err.message);
@@ -56,7 +68,18 @@ export default function DisplayProfile() {
   }, [id]);
 
   const handleClick = () => {
-    setFollowing(!following);
+    
+    axios
+      .put(`http://localhost:8080/api/user/${sessionStorage.getItem("userId")}/follow/${id}`)
+      .then((res) => {
+        console.log("user"+res.data);
+        setIsFollowing(true);
+        console.log("session"+sessionStorage.getItem("userId"));
+        alert("request sent")
+      })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   const btnClick = (event) => {
@@ -125,7 +148,7 @@ export default function DisplayProfile() {
         /> */}
         <img
           className="userImage"
-          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+          src={proPic}
           alt=""
         />
       </div>
@@ -133,13 +156,16 @@ export default function DisplayProfile() {
       <div className="profileContainer">
         <div className="userInfo">
           <div className="left">
-            <a
+            {/* <a
               className="friends"
               href="https://www.youtube.com/watch?v=FweHcYHkt9A&t=6979s"
             >
               <PeopleIcon />
               Friends
-            </a>
+            </a> */}
+             <button className="friends" onClick={() => {
+                                            window.location.replace(`/profile/${id}/friends`);
+                                        }}>Friends <PeopleIcon /></button>  
             <input id="filePicker" type="file" onChange={changeProfilePicture}/>
           </div>
 
@@ -154,7 +180,9 @@ export default function DisplayProfile() {
             {/* <button className="btnProfile" onClick={handleUpdateFormOpen}>
               Update
             </button> */}
-            <button className="btnProfile" onClick={() => setOpen(true)}>
+            
+            {/* { */}
+              <button className="btnProfile" onClick={() => setOpen(true)}>
               Update
             </button>
 
@@ -163,9 +191,10 @@ export default function DisplayProfile() {
                 <UpdateProfile />
               </div>
             </Modal>
+            {/* } */}
 
             <button className="btnProfile" onClick={handleClick}>
-              {following ? "Unfollow" : "Follow"}
+              {isFollowing ? "Unfollow" : "Follow"}
             </button>
             <IconButton className="Iconbtn" onClick={btnClick}>
               <MoreHorizIcon />
